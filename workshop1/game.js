@@ -18,14 +18,15 @@ Game.prototype.start = function(){
 	function init(){
 		for (var i = 0; i<self.nbBalls; i++){
 			var size = Math.random();
-			var radius = size*2+9;
+			var radius = size*20+9;
 			var x = Math.random()*(self.canvas.width-radius*2)+radius;
-			var y = Math.random()*5+10;
-			var vy = Math.random()*2 - 1;
-			var vx = Math.random()*2-1;
-			var color = Math.round(size*100);
+			var y = Math.random()*20+10;
+			var vy = 0;
+			var vx = Math.random()*6-3;
+			var mass = (1-size)*0.8+0.1;
+			var color = Math.round(150-size*150);
 			
-			var ball = new Ball(x, y, vx, vy, radius, rgbToHex(color, color, color));
+			var ball = new Ball(x, y, vx, vy, radius, rgbToHex(color, color, color), mass);
 			self.balls.push(ball);
 		}		
 		

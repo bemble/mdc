@@ -1,10 +1,10 @@
-function Ball(x, y, vx, vy,radius, color) {
+function Ball(x, y, vx, vy,radius, color, mass) {
     this.velocity = {x: vx, y: vy};
     this.position = {x: x, y: y};
 	this.color = color;
-    this.mass = 0.1;
+    this.mass = mass;
     this.radius = radius;
-    this.restitution = -0.9;
+    this.restitution = -0.8;
 };
 
 Ball.prototype.draw = function(ctx) {
@@ -40,6 +40,7 @@ Ball.prototype.update = function(frameRate, canvas) {
     this.position.y += this.velocity.y*frameRate*100;
     if(this.position.y >  canvas.height - this.radius) {
         this.velocity.y *= this.restitution;
+		this.velocity.x *= -this.restitution;
         this.position.y = canvas.height - this.radius;
     }
 	
