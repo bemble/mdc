@@ -10,14 +10,45 @@
         <canvas>
         <script>
             (function() {
-                var canvas = document.querySelector('canvas')
-                var ctx = canvas.getContext("2d");
+                var canvas = document.querySelector('canvas');
+				var balls = [];
+				
+				initialisation(canvas);
                 
                 function Ball() {
                     this.x = 150;
                     this.y = 75;
                     this.radius = 10;
+					
+					this.init = init;
+
+					
+					function init(x, y, vx, vy){
+						this.x = x;
+						this.y = x;
+						this.vx = vx;
+						this.vy = vy;
+					}
                 }
+				
+				function Canvas(){
+					this.width;
+					this.height;
+					this.ctx;
+					this.init = init;
+					this.clear = clear;
+					
+					function init(tag){
+						this.tag = tag;
+						this.width = canvas.width;
+						this.height = canvas.heigth;
+						this.ctx = canvas.getContext("2d");
+					}
+					
+					function clear(){
+						ctx.clearRect(0, 0, canvas.width, canvas.height);
+					}
+				}
                 
                 Ball.prototype.draw = function() {
                     ctx.beginPath();
@@ -40,13 +71,23 @@
                 var interval = setInterval(function() {
                     var moved = ball.move();
                     if(moved) {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        canvas.clear();
                         ball.draw();
                     }
                     else {
                         clearInterval(interval);
                     }
                 }, 10);
+				
+				
+				function initialisation(nbBalls, tag){
+					var canvas = new Canvas(tag);
+					
+					for (x = 0; x<nbBalls; x++){
+						Math.Random()
+					}
+				}
+				
             })();
         </script>
     </body>
