@@ -40,6 +40,7 @@
 	
     <body>
         <app>
+		<div class="inputs-container">
             <div class="input-container">
                 <input placeholder="Login">
                 <input type="password" placeholder="Password">
@@ -47,16 +48,16 @@
 			<div class="btn-container">
 				<button id="btn-start" class="waves-effect waves-light btn">Start</button>
 			</div>
+			</div>
 	<div id="background" class="home home-background"></div>
         </app>
 		
 		<script>
-			var inputs = $("input");
+			var inputs = $(".inputs-container");
 			var btnStart = $("#btn-start");
 			var background = $("#background");
 			
 			btnStart.click(function(){
-				btnStart.addClass("start");
 				background.addClass("start");
 				inputs.addClass("start");
 				setTimeout(function(){
