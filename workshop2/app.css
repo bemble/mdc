@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+app {
+    display: block;
+    position: absolute;
+    width: 362px;
+    height: 569px;
+    top: calc(50vh - 284px);
+    left: calc(50vw - 181px);
+    border: 1px solid #BDBDBD;
+    
+}
