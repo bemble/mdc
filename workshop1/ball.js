@@ -1,13 +1,13 @@
-function Ball(x, y, vx, vy,radius, color) {
+function Ball(x, y, vx, vy,radius, color, mass) {
     this.velocity = {x: vx, y: vy};
     this.position = {x: x, y: y};
     this.skew = 0;
     this.isSkewing = false;
     this.skewDirection = 1;
 	this.color = color;
-    this.mass = 0.1;
+    this.mass = mass;
     this.radius = radius;
-    this.restitution = -0.9;
+    this.restitution = -0.8;
 };
 
 Ball.prototype.draw = function(ctx) {
@@ -62,6 +62,7 @@ Ball.prototype.update = function(frameRate, canvas) {
 
     if(this.position.y >  canvas.height - this.radius) {
         this.velocity.y *= this.restitution;
+		this.velocity.x *= -this.restitution;
         this.position.y = canvas.height - this.radius;
         if(Math.abs(this.velocity.y) > 0.7)
             this.isSkewing = true;
