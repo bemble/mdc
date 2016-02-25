@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Bouncy curvy ball</title>
+        <style>
+            canvas { background-color: white; border: 1px solid #AAA; margin: 0 auto;};
+        </style>
+    </head>
+    <body>
+        <canvas width="600" height="600">
+        <canvas>
+		<script src="ball.js"></script>
+		<script src="canvas.js"></script>
+		<script src="game.js"></script>
+        <script>
+            (function() {
+                var canvas = document.querySelector('canvas');
+				var game = new Game(1/40, 10, canvas);
+				
+				game.start();                
+            })();
+        </script>
+    </body>
+</html>
