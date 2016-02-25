@@ -1,8 +1,8 @@
-                function Ball(x, y, vx, vy) {
+                function Ball(x, y, vx, vy, radius) {
                     this.velocity = {x: vx, y: vy};
                     this.position = {x: x, y: y};
                     this.mass = 0.1;
-                    this.radius = 10;
+                    this.radius = radius;
                 };
 				
 				Ball.prototype.draw = function(ctx) {
