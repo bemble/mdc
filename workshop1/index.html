@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Bouncy curvy ball</title>
+        <style>
+            canvas { background-color: white; border: 1px solid #AAA; margin: 0 auto;};
+        </style>
+    </head>
+    <body>
+        <canvas width="300" height="600">
+        <canvas>
+        <script>
+            (function() {
+                var ctx = document.querySelector('canvas').getContext("2d");
+ 
+                //draw a circle
+                ctx.beginPath();
+                ctx.arc(75, 75, 10, 0, Math.PI*2, true); 
+                ctx.closePath();
+                ctx.fill();
+            })();
+        </script>
+    </body>
+</html>
