@@ -19,8 +19,11 @@
 			var background = $("#background");
 			
 			btnStart.click(function(){
-			btnStart.addClass("start");
-			background.addClass("start");
+				btnStart.addClass("start");
+				background.addClass("start");
+				setTimeout(function(){
+					window.location.href = 'home.html';
+				}, 1450);
 			});
 		</script>
     </body>
