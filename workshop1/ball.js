@@ -1,20 +1,41 @@
 function Ball(x, y, vx, vy) {
     this.velocity = {x: vx, y: vy};
     this.position = {x: x, y: y};
+    this.skew = 0;
     this.mass = 0.1;
     this.radius = 10;
     this.restitution = -0.7;
+    this.isSkewing = false;
+    this.skewDirection = 1;
 };
 
 Ball.prototype.draw = function(ctx) {
     ctx.beginPath();
-    ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI*2, true); 
+    ctx.ellipse(this.position.x, this.position.y + this.skew, this.radius + this.skew, this.radius - this.skew, 0, 0, Math.PI*2, true); 
     ctx.closePath();
     ctx.fill();
 };
 
+Ball.prototype.computeSkew = function() {
+    var skewMax = 3;
+    this.skew = this.skew + 1.5 * this.skewDirection;
+    if(this.skewDirection > 0 && this.skew === skewMax) {
+        this.skewDirection = -1;
+    }
+    else if(this.skewDirection && this.skew === 0) {
+        this.skewDirection = 1;
+        return false;
+    }
+    return true;
+}
+
 // Thanks to that for the formulas: http://jsfiddle.net/bkanber/39jrM/
 Ball.prototype.update = function(frameRate, canvas) {
+    if(this.isSkewing) {
+        var skewed = this.computeSkew();
+        this.isSkewing = skewed;
+        return;
+    }
     var Cd = 0.47;  // Dimensionless
     var rho = 1.22; // kg / m^3
     var A = Math.PI * this.radius * this.radius / (10000); // m^2
@@ -36,8 +57,11 @@ Ball.prototype.update = function(frameRate, canvas) {
     // Integrate to get position
     this.position.x += this.velocity.x*frameRate*100;
     this.position.y += this.velocity.y*frameRate*100;
+
     if(this.position.y >  canvas.height - this.radius) {
         this.velocity.y *= this.restitution;
         this.position.y = canvas.height - this.radius;
+        if(Math.abs(this.velocity.y) > 0.7)
+            this.isSkewing = true;
     }
 };
