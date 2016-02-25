@@ -1,19 +1,21 @@
-function Ball(x, y, vx, vy) {
+function Ball(x, y, vx, vy,radius, color) {
     this.velocity = {x: vx, y: vy};
     this.position = {x: x, y: y};
     this.skew = 0;
-    this.mass = 0.1;
-    this.radius = 10;
-    this.restitution = -0.7;
     this.isSkewing = false;
     this.skewDirection = 1;
+	this.color = color;
+    this.mass = 0.1;
+    this.radius = radius;
+    this.restitution = -0.9;
 };
 
 Ball.prototype.draw = function(ctx) {
     ctx.beginPath();
     ctx.ellipse(this.position.x, this.position.y + this.skew, this.radius + this.skew, this.radius - this.skew, 0, 0, Math.PI*2, true); 
-    ctx.closePath();
+	ctx.fillStyle = this.color;
     ctx.fill();
+    ctx.closePath();
 };
 
 Ball.prototype.computeSkew = function() {
@@ -63,5 +65,14 @@ Ball.prototype.update = function(frameRate, canvas) {
         this.position.y = canvas.height - this.radius;
         if(Math.abs(this.velocity.y) > 0.7)
             this.isSkewing = true;
+    }
+	
+	
+    if(this.position.x >  canvas.width - this.radius) {
+        this.velocity.x *= this.restitution;
+        this.position.x = canvas.width - this.radius;
+    }else if(this.position.x < this.radius) {
+        this.velocity.x *= this.restitution;
+        this.position.x = this.radius;
     }
 };
