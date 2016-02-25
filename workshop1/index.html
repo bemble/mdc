@@ -10,17 +10,48 @@
         <canvas>
         <script>
             (function() {
-                var canvas = document.querySelector('canvas')
-                var ctx = canvas.getContext("2d");
+                var canvas = document.querySelector('canvas');
+				var balls = [];
+				
                 var frameRate = 1/40; // Seconds
                 var frameDelay = frameRate * 1000; // ms
+				initialisation(canvas);
                 
                 function Ball() {
                     this.velocity = {x: 0, y: 0};
                     this.position = {x: 150, y: 75};
                     this.mass = 0.1;
                     this.radius = 10;
+					
+					this.init = init;
+
+					
+					function init(x, y, vx, vy){
+						this.x = x;
+						this.y = x;
+						this.vx = vx;
+						this.vy = vy;
+					}
                 }
+				
+				function Canvas(){
+					this.width;
+					this.height;
+					this.ctx;
+					this.init = init;
+					this.clear = clear;
+					
+					function init(tag){
+						this.tag = tag;
+						this.width = canvas.width;
+						this.height = canvas.heigth;
+						this.ctx = canvas.getContext("2d");
+					}
+					
+					function clear(){
+						ctx.clearRect(0, 0, canvas.width, canvas.height);
+					}
+				}
                 
                 Ball.prototype.draw = function() {
                     ctx.beginPath();
@@ -63,9 +94,18 @@
                 
                 var interval = setInterval(function() {
                     ball.computeVelocity();
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ball.draw();                     
+                        canvas.clear();
+                        ball.draw();
                 }, frameDelay);
+				
+				
+				function initialisation(nbBalls, tag){
+					var canvas = new Canvas(tag);
+					
+					for (x = 0; x<nbBalls; x++){
+						Math.Random()
+					}
+				}
             })();
         </script>
     </body>
