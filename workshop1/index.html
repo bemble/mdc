@@ -12,41 +12,60 @@
             (function() {
                 var canvas = document.querySelector('canvas')
                 var ctx = canvas.getContext("2d");
+                var frameRate = 1/40; // Seconds
+                var frameDelay = frameRate * 1000; // ms
                 
                 function Ball() {
-                    this.x = 150;
-                    this.y = 75;
+                    this.velocity = {x: 0, y: 0};
+                    this.position = {x: 150, y: 75};
+                    this.mass = 0.1;
                     this.radius = 10;
                 }
                 
                 Ball.prototype.draw = function() {
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, true); 
+                    ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI*2, true); 
                     ctx.closePath();
                     ctx.fill();
                 };
                 
-                Ball.prototype.move = function() {
-                    if(this.y + this.radius < canvas.height) {
-                        this.y += 2;
-                        return true;
+                Ball.prototype.computeVelocity = function() {
+                    var Cd = 0.47;  // Dimensionless
+                    var rho = 1.22; // kg / m^3
+                    var A = Math.PI * this.radius * this.radius / (10000); // m^2
+                    var ag = 9.81;  // m / s^2
+                
+                    var Fx = -0.5 * Cd * A * rho * this.velocity.x * this.velocity.x * this.velocity.x / Math.abs(this.velocity.x);
+                    var Fy = -0.5 * Cd * A * rho * this.velocity.y * this.velocity.y * this.velocity.y / Math.abs(this.velocity.y);
+                    
+                    Fx = (isNaN(Fx) ? 0 : Fx);
+                    Fy = (isNaN(Fy) ? 0 : Fy);
+                    
+                        // Calculate acceleration ( F = ma )
+                    var ax = Fx / this.mass;
+                    var ay = ag + (Fy / this.mass);
+                    
+                    this.velocity.x += ax*frameRate;
+                    this.velocity.y += ay*frameRate;
+                    
+                        // Integrate to get position
+                    var newX = this.position.x + this.velocity.x*frameRate*100;
+                    var newY = this.position.y + this.velocity.y*frameRate*100;
+                    if(newY + this.radius > canvas.height) {
+                        newY = canvas.height - this.radius;
                     }
-                    return false;
+                    this.position.x = newX;
+                    this.position.y = newY;
                 };
                 
                 var ball = new Ball();
                 ball.draw();
                 
                 var interval = setInterval(function() {
-                    var moved = ball.move();
-                    if(moved) {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        ball.draw();
-                    }
-                    else {
-                        clearInterval(interval);
-                    }
-                }, 10);
+                    ball.computeVelocity();
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ball.draw();                     
+                }, frameDelay);
             })();
         </script>
     </body>
