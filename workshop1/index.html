@@ -29,6 +29,7 @@
                     ctx.fill();
                 };
                 
+                // Thanks to that for the formulas: http://jsfiddle.net/bkanber/39jrM/
                 Ball.prototype.computeVelocity = function() {
                     var Cd = 0.47;  // Dimensionless
                     var rho = 1.22; // kg / m^3
@@ -48,14 +49,13 @@
                     this.velocity.x += ax*frameRate;
                     this.velocity.y += ay*frameRate;
                     
-                        // Integrate to get position
-                    var newX = this.position.x + this.velocity.x*frameRate*100;
-                    var newY = this.position.y + this.velocity.y*frameRate*100;
-                    if(newY + this.radius > canvas.height) {
-                        newY = canvas.height - this.radius;
+                    // Integrate to get position
+                    this.position.x += this.velocity.x*frameRate*100;
+                    this.position.y += this.velocity.y*frameRate*100;
+                    if(this.position.y >  canvas.height - this.radius) {
+                        this.velocity.y *= this.restitution;
+                        this.position.y = canvas.height - this.radius;
                     }
-                    this.position.x = newX;
-                    this.position.y = newY;
                 };
                 
                 var ball = new Ball();
