@@ -1,9 +1,27 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="app.css">
+		<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     </head>
+	
     <body>
         <app>
+			<div class="btn-container">
+				<a id="btn-start" class="waves-effect waves-light btn">Start</a>
+			</div>
+	<div id="background" class="home home-background"></div>
         </app>
+		
+		<script>
+			var btnStart = $("#btn-start");
+			var background = $("#background");
+			
+			btnStart.click(function(){
+			btnStart.addClass("start");
+			background.addClass("start");
+			});
+		</script>
     </body>
 </html>
