@@ -16,17 +16,37 @@
                 function Ball() {
                     this.x = 150;
                     this.y = 75;
+                    this.radius = 10;
                 }
                 
                 Ball.prototype.draw = function() {
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, 10, 0, Math.PI*2, true); 
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, true); 
                     ctx.closePath();
+                    ctx.fill();
+                };
+                
+                Ball.prototype.move = function() {
+                    if(this.y + this.radius < canvas.height) {
+                        this.y += 2;
+                        return true;
+                    }
+                    return false;
                 };
                 
                 var ball = new Ball();
                 ball.draw();
-                ctx.fill();
+                
+                var interval = setInterval(function() {
+                    var moved = ball.move();
+                    if(moved) {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ball.draw();
+                    }
+                    else {
+                        clearInterval(interval);
+                    }
+                }, 10);
             })();
         </script>
     </body>
