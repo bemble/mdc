@@ -72,7 +72,7 @@ a {
 
 .btn-container{
 	position: absolute;
-    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    top: 65%;  /* position the top  edge of the element at the middle of the parent */
     left: 50%; /* position the left edge of the element at the middle of the parent */
 
     transform: translate(-50%, -50%);
@@ -126,8 +126,8 @@ a {
     box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
 }
 
-.btn.start{
-	transition:transform 0.5s ease-in,
+input.start, .btn.start{
+	transition:transform 0.5s ease-in;
 	width:500%;
 	height:500%;
 	opacity:0;

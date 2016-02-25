@@ -69,9 +69,6 @@
         </app>
         <script>
         (function() {
-            
-            var isLoading = true;
-            
             document.querySelector('app').classList.add('loading');
             
             var rooms = document.querySelectorAll('g');
@@ -81,12 +78,22 @@
                 });
             }
             closeRooms();
+            rooms[0].classList.add('loading');
+                    
             var currentRoom = 0;
             var interval = setInterval(function() {
                 closeRooms();
                 rooms[currentRoom%rooms.length].classList.remove('loading');
                 currentRoom ++;
-            }, 900);
+            }, 400);
+            
+            setTimeout(function() {
+                clearInterval(interval);
+                document.querySelector('app').classList.remove('loading');
+                document.querySelector('app').addEventListener('click', function() {
+                   location.href = './bathroom.html';
+                });
+            }, 5000);
         })();
         </script>
     </body>
