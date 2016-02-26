@@ -11,4 +11,4 @@ Scene.prototype.rotate = function(x, y) {
     this.rotationAngle.y += y;
 }
 
-window.scene = new Scene();
+window.game = new Game();
