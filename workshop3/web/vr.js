@@ -1,3 +1,9 @@
+window.setSceneOrientation = function(x, y, z) {
+    document.getElementById('x').innerHTML = "x: " + x;
+    document.getElementById('y').innerHTML = "y: " + y;
+    document.getElementById('z').innerHTML = "z: " + z;
+};
+
 (function() {
     var canvas = document.querySelector('canvas');
     var ctx = canvas.getContext("2d");
@@ -15,17 +21,9 @@
     ctx.fillStyle=grd;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    /*if(window.DeviceMotionEvent){
-  window.addEventListener("devicemotion", motion, false);
-}else{
-  console.log("DeviceMotionEvent is not supported");
-}
+    window.addEventListener("deviceorientation", orientation, false);
     
-    function motion(event){
-  console.log("Accelerometer: "
-    + event.accelerationIncludingGravity.x + ", "
-    + event.accelerationIncludingGravity.y + ", "
-    + event.accelerationIncludingGravity.z
-  );
-}*/
+    function orientation(event){
+        window.setSceneOrientation(event.beta, event.gamma, event.alpha);
+    }
 })();
