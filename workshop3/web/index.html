@@ -1,16 +1,19 @@
 <html>
     <head>
+        <meta name="apple-touch-fullscreen" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,minimal-ui">
         <title>VR</title>
         <style>
-            html, body { background: #000; min-height: 100vh; }
+            html, body { background: #000; min-height:100vh; height: 100vh; }
             * { border:none; padding: 0; margin: 0; }
-            table { width: 100%; border-collapse: collapse; height: 100vh; }
+            table { width: 100%; border-collapse: collapse; height: 100%; }
             td { width: 50%; text-align: center; }
             #left { border-right: 1px solid transparent; }
             #right { border-left: 1px solid transparent; }
             canvas { width: 300px; height: 300px; }
+            div.spacer { height: 1px; }
         </style>
     </head>
     <body>
@@ -24,6 +27,7 @@
                 </td>
             </tr>
         </table>
+        <div class="spacer"></div>
         <script src="vr.js"></script>
     </body>
 <html>
