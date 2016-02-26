@@ -1,6 +1,6 @@
 
 (function() {	
-    
+    window.scrollTo(0, 1);
     var canvases = {}, ctxes = {}, zOrientation = 0;
 	var mountainsChains = [];
 	
@@ -90,8 +90,8 @@
 				
 				var posX = mountain.x+position*mountains.speed;
 				
-				if(posX<canvas.width && posX + mountain.width>0)
-				drawMountain(ctx, posX, mountain.width, mountains.pos, mountains.color);
+				if(posX < canvas.width && posX + mountain.width > 0)
+				    drawMountain(ctx, posX, mountain.width, mountains.pos, mountains.color);
 			}
 		}
 	}
@@ -101,7 +101,7 @@
     function motion(eventData){
         var call = (new Date()).getTime();
         if(call - lastCall > 10) {
-            zOrientation = event.alpha;
+            zOrientation = -1 * event.alpha;
             draw();
             lastCall = call;
         }
@@ -109,7 +109,7 @@
 
     function draw() {
         ['left', 'right'].forEach(function(side) {
-            drawMountains(ctxes[side], zOrientation/360*50);
+            drawMountains(ctxes[side], (zOrientation/360)*300);
         });
     }
 })();
