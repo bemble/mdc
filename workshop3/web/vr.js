@@ -1,7 +1,7 @@
 
 (function() {	
-    
-    var canvases = {}, ctxes = {};
+    window.scrollTo(0, 1);
+    var canvases = {}, ctxes = {}, zOrientation = 0;
 	var mountainsChains = [];
 	
     ['left', 'right'].forEach(function(side) {
@@ -70,7 +70,7 @@
 	
 	function drawMountains(ctx, position, padding){
 		var canvas = canvases.left;
-		ctx.fillStyle="#FF0000";
+		ctx.fillStyle="#3F51B5";
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		
 		
@@ -96,21 +96,22 @@
 		}
 	}
 
-	['left', 'right'].forEach(function(side, index) {
-		var canvas = canvases[side];
-		var ctx = ctxes[side];
+    window.addEventListener("deviceorientation", motion, false);
+    var lastCall = (new Date()).getTime();
+    function motion(eventData){
+        var call = (new Date()).getTime();
+        if(call - lastCall > 10) {
+            var newZ = (180 + Math.abs(event.alpha))%360;
+            zOrientation = -1 * newZ;
+            draw();
+            lastCall = call;
+        }
+    }
 
-		var width = canvas.width, height = canvas.height;
-			
-		
-		function move(position){
-			drawMountains(ctx, position*50, index);
-		}
-		
-		var position=0;
-		var interval = setInterval(function(){
-			position-=1;
-			drawMountains(ctx, position, index);
-		}, 25);
-	});
+    function draw() {
+        ['left', 'right'].forEach(function(side, index) {
+            drawMountains(ctxes[side], zOrientation, index);
+        });
+    }
+
 })();
