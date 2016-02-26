@@ -101,7 +101,8 @@
     function motion(eventData){
         var call = (new Date()).getTime();
         if(call - lastCall > 10) {
-            zOrientation = -1 * event.alpha;
+            var newZ = (180 + Math.abs(event.alpha))%360;
+            zOrientation = -1 * newZ;
             draw();
             lastCall = call;
         }
