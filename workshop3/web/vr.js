@@ -9,6 +9,14 @@
         elem.webkitRequestFullscreen();
     }
     
+     window.addEventListener("load",function() {
+      // Set a timeout...
+      setTimeout(function(){
+        // Hide the address bar!
+        window.scrollTo(0, 1);
+      }, 0);
+    });
+    
     var canvases = {}, ctxes = {}, zOrientation = 0;
 	var mountainsChains = [];
 	
