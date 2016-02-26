@@ -1,6 +1,14 @@
 
-(function() {	
-    window.scrollTo(0, 1);
+(function() {
+    var elem = document.querySelector('table');
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    }
+    
     var canvases = {}, ctxes = {}, zOrientation = 0;
 	var mountainsChains = [];
 	
@@ -36,7 +44,7 @@
 			colors.b+=15;
 			var x = -size*0.5;
 			size -= canvas.height/10;
-			pos= canvas.height*1.0-(3-i)*size*0.2;
+			pos= canvas.height*1.0-(3-i)*size*0.1;
 			
 			var mountainsChain = new Mountains(pos, 'rgb('+colors.r+","+colors.g+","+colors.b+')', i+1)
 			mountainsChains.push(mountainsChain);
@@ -60,7 +68,7 @@
 		ctx.beginPath();
 		ctx.moveTo(x+padding, pos+padding);
 		ctx.lineTo(x+padding, pos-width/2+padding);
-		ctx.lineTo(x+width/2+padding, y = pos - width+padding);
+		ctx.lineTo(x+width/2+padding, pos - width+padding);
 		ctx.lineTo(x+width+padding, pos-width/2+padding);
 		ctx.lineTo(x+width+padding, pos+padding);
 		ctx.closePath();
@@ -91,7 +99,7 @@
 				var posX = mountain.x+position*mountains.speed;
 				
 				if(posX<canvas.width && posX + mountain.width>0)
-				drawMountain(ctx, posX, mountain.width, mountains.pos, mountains.color, padding*i*2);
+				drawMountain(ctx, posX, mountain.width, mountains.pos, mountains.color, padding*i*5);
 			}
 		}
 	}
