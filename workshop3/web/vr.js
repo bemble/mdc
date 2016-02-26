@@ -64,13 +64,13 @@
 	
 	// Clears the canvas and draws a mountain silohuette.  The mountain is a light
 	// purple.  Also renders the ruggedness value in black.
-	 function drawMountain(ctx, x, width, pos, color, padding) {
+	 function drawMountain(ctx, x, width, pos, color) {
 		ctx.beginPath();
-		ctx.moveTo(x+padding, pos+padding);
-		ctx.lineTo(x+padding, pos-width/2+padding);
-		ctx.lineTo(x+width/2+padding, pos - width+padding);
-		ctx.lineTo(x+width+padding, pos-width/2+padding);
-		ctx.lineTo(x+width+padding, pos+padding);
+		ctx.moveTo(x, pos);
+		ctx.lineTo(x, pos-width/2);
+		ctx.lineTo(x+width/2, pos - width);
+		ctx.lineTo(x+width, pos-width/2);
+		ctx.lineTo(x+width, pos);
 		ctx.closePath();
 		ctx.fillStyle = color;
 		ctx.fill();
@@ -98,8 +98,9 @@
 				
 				var posX = mountain.x+position*mountains.speed;
 				
+				var decalage = padding*(mountainsChains.length-1-i)*2;
 				if(posX<canvas.width && posX + mountain.width>0)
-				drawMountain(ctx, posX, mountain.width, mountains.pos, mountains.color, padding*i*5);
+				drawMountain(ctx, posX+decalage, mountain.width, mountains.pos-decalage, mountains.color);
 			}
 		}
 	}
